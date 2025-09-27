@@ -11,7 +11,7 @@ export const Home = () => {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              "url(https://youmatter.world/app/uploads/2019/11/travel-world.jpg)",
+              "url(https://png.pngtree.com/background/20250121/original/pngtree-a-small-cozy-village-in-switzerland-picture-image_15498851.jpg)",
           }}
         ></div>
 

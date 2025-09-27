@@ -9,6 +9,7 @@ import { Destination } from './pages/AdminDashboard/Destination';
 import { Package } from './pages/AdminDashboard/Package';
 import { Booking } from './pages/AdminDashboard/Booking';
 import { Payments } from './pages/AdminDashboard/Payments';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   
@@ -18,13 +19,12 @@ function App() {
       <Route path='/' element={<Home />}></Route>
       <Route path='/register' element={<Register />}></Route>
       <Route path='/login' element={<Login />}></Route>
-      <Route path='/destination' element={<Destination />}></Route>
-      <Route path='/admin' element={<Admin />}></Route>
+      <Route path='/destination' element={<ProtectedRoute><Destination /></ProtectedRoute> }></Route>
+      <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>}></Route>
       <Route path='/user' element={<User />}></Route>
-      <Route path='/destination' element={<Destination />}></Route>
-      <Route path='/packages' element={<Package />}></Route>
-      <Route path='/bookings' element={<Booking />}></Route>
-      <Route path='/payments' element={<Payments />}></Route>
+      <Route path='/packages' element={<ProtectedRoute><Package /></ProtectedRoute>}></Route>
+      <Route path='/bookings' element={<ProtectedRoute><Booking /></ProtectedRoute>}></Route>
+      <Route path='/payments' element={<ProtectedRoute><Payments /></ProtectedRoute>}></Route>
 
     </Routes>
    </div>
