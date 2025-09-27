@@ -26,12 +26,16 @@ export const addBooking = async (req, res) => {
 
 export const getAllBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find();
+    const bookings = await Booking.find()
+      .populate("user", "username")
+      .populate("package", "title");
+
     res.json(bookings);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 //Get booking for a user
 

@@ -47,3 +47,13 @@ export const paymentSession = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const getPayments = async (req, res) => {
+  try {
+    const payments = await Payment.find()
+     .populate("user", "username");
+    res.json(payments);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

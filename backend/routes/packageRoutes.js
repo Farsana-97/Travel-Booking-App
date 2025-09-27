@@ -6,7 +6,7 @@ import { admin, authMiddleware } from '../middlewares/authMiddleware.js'
 
 const packageRouter = express.Router()
 
-packageRouter.post('/',upload.array("images",6),authMiddleware,admin, addPackage)
+packageRouter.post('/add',upload.array("images",6),authMiddleware,admin, addPackage)
 packageRouter.get('/',authMiddleware,getAllPackages)
 packageRouter.get('/:id',authMiddleware,getPackageById)
 packageRouter.put("/:id", upload.array("images",6),authMiddleware,admin,editPackage );

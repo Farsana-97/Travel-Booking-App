@@ -7,6 +7,8 @@ export const addPackage = async (req, res) => {
     const {title,destination,description,itinerary,price,availableFrom,availableTo,} = req.body;
 
     let uploadedImages = [];
+    const itineraryArray = itinerary ? itinerary.split(",").map(i => i.trim()) : [];
+
 
     if (req.files) {
       uploadedImages = req.files.map((file) => file.path);
@@ -16,7 +18,7 @@ export const addPackage = async (req, res) => {
       title,
       destination,
       description,
-      itinerary: JSON.parse(itinerary || "[]"),
+      itinerary: itineraryArray,
       price,
       images: uploadedImages,
       availableFrom,
@@ -33,7 +35,8 @@ export const addPackage = async (req, res) => {
 
 export const getAllPackages = async (req, res) => {
   try {
-    const packages = await Package.find();
+    const packages = await Package.find()
+     .populate("destination", "name");
     res.json(packages);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -70,7 +73,7 @@ export const editPackage = async (req, res) => {
       new: true,
     });
 
-    res.json({message: "Package updated successfully",package: updatedPackage,});
+    res.json({message: "Package updated successfully",updatedPackage,});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -82,7 +85,7 @@ export const deletePackage = async (req, res) => {
   try {
     const id = req.params.id;
     const packageItem = await Package.findByIdAndDelete(id);
-    res.json({ message: "Package deleted successfully" });
+    res.json({ message: "Package deleted successfully" ,id});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

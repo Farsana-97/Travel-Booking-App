@@ -59,7 +59,7 @@ export const deleteDestination = async (req, res) => {
   try {
     const id = req.params.id;
     const destination = await Destination.findByIdAndDelete(id);
-    res.status(200).json({ message: "Destination deleted successfully" });
+    res.status(200).json({ message: "Destination deleted successfully",id });
   } catch (error) {
     res.status(500).json({error: error.message,});
   }
