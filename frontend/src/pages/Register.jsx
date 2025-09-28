@@ -54,7 +54,7 @@ export const Register = () => {
             <input
               type="email"
               name="email"
-              placeholder="example@mail.com"
+              placeholder="Enter your email"
               value={data.email}
               onChange={handleChange}
               required

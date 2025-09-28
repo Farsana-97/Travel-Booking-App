@@ -22,7 +22,6 @@ export const loginUser = createAsyncThunk("auth/login", async (data) => {
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.role);
-      console.log(res.data);
     }
     return res.data;
   } catch (err) {
