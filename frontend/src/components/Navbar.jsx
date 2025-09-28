@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../features/authSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const dispatch = useDispatch();
 
   const [scrolled, setScrolled] = useState(false);
 
@@ -21,7 +24,7 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    dispatch(logout())
     navigate("/login");
   };
 
