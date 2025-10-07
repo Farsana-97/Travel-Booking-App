@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../axiosInstance";
 
+// Get all Payments
+
 export const fetchPayments = createAsyncThunk(
   "payments/fetch",
   async (data) => {
@@ -13,15 +15,58 @@ export const fetchPayments = createAsyncThunk(
   }
 );
 
+// Payment Session
+
+export const addPaymentSession = createAsyncThunk(
+  "payments/addPayment",
+  async (data) => {
+    try {
+      let res = await axiosInstance.post("/payment", data);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+// Update Status
+
+export const updatePaymentStatus = createAsyncThunk(
+  "payments/updateStatus",
+  async ({ sessionId, status }) => {
+    const res = await axiosInstance.post("/payment/update", {
+      sessionId,
+      status,
+    });
+    return res.data;
+  }
+);
+
 const paymentSlice = createSlice({
   name: "payment",
-  initialState: { payments: [], loading: false, error: null },
+  initialState: {
+    payments: [],
+    loading: false,
+    error: null,
+    session: null,
+    updatedPayment: null,
+  },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchPayments.fulfilled, (state, action) => {
-      state.loading = false;
-      state.payments = action.payload;
-    });
+    builder
+      .addCase(fetchPayments.fulfilled, (state, action) => {
+        state.loading = false;
+        state.payments = action.payload;
+      })
+      .addCase(addPaymentSession.fulfilled, (state, action) => {
+        state.loading = false;
+        state.session = action.payload;
+      })
+
+      .addCase(updatePaymentStatus.fulfilled, (state, action) => {
+        state.loading = false;
+        state.updatedPayment = action.payload;
+      });
   },
 });
 

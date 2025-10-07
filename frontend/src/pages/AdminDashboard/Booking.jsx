@@ -5,7 +5,7 @@ import { Admin } from "./Admin";
 
 export const Booking = () => {
   const dispatch = useDispatch();
-  const { bookings} = useSelector((state) => state.booking);
+  const { bookings } = useSelector((state) => state.booking);
 
   useEffect(() => {
     dispatch(fetchBooking());
@@ -42,9 +42,7 @@ export const Booking = () => {
                     {new Date(x.travelDate).toLocaleDateString()}
                   </td>
                   <td className="border p-2">${x.totalAmount}</td>
-                  <td className="border p-2 capitalize">
-                    {x.bookingStatus}
-                  </td>
+                  <td className="border p-2 capitalize">{x.bookingStatus}</td>
                 </tr>
               ))}
             </tbody>

@@ -10,12 +10,16 @@ import paymentRouter from "./routes/paymentRoutes.js";
 import notifiRouter from "./routes/notifiRoutes.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
+
 dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors())
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
 
 app.use("/api/auth", authRouter);
 app.use("/api/destination", destiRouter);

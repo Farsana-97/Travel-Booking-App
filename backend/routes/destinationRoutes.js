@@ -6,7 +6,7 @@ import { admin, authMiddleware } from '../middlewares/authMiddleware.js';
 const destiRouter = express.Router()
 
 destiRouter.post('/',upload.single("image"),authMiddleware,admin, addDestination)
-destiRouter.get('/',authMiddleware,getAllDestinations)
+destiRouter.get('/',getAllDestinations)
 destiRouter.put("/:id", upload.single("image"),authMiddleware,admin, editDestination);
 destiRouter.delete("/:id",authMiddleware,admin, deleteDestination);
 

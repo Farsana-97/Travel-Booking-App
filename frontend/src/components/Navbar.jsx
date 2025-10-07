@@ -24,7 +24,7 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    dispatch(logout())
+    dispatch(logout());
     navigate("/login");
   };
 
@@ -50,7 +50,9 @@ const Navbar = () => {
           <a
             href="/destination"
             className={`font-medium transition ${
-              scrolled ? "text-gray-600 hover:text-gray-900" : "text-white hover:text-gray-200"
+              scrolled
+                ? "text-gray-600 hover:text-gray-900"
+                : "text-white hover:text-gray-200"
             }`}
           >
             About Us
@@ -58,15 +60,19 @@ const Navbar = () => {
           <a
             href="#pricing"
             className={`font-medium transition ${
-              scrolled ? "text-gray-600 hover:text-gray-900" : "text-white hover:text-gray-200"
+              scrolled
+                ? "text-gray-600 hover:text-gray-900"
+                : "text-white hover:text-gray-200"
             }`}
           >
             Destinations
           </a>
           <a
-            href="/blog"
+            href="/package-view"
             className={`font-medium transition ${
-              scrolled ? "text-gray-600 hover:text-gray-900" : "text-white hover:text-gray-200"
+              scrolled
+                ? "text-gray-600 hover:text-gray-900"
+                : "text-white hover:text-gray-200"
             }`}
           >
             Packages
@@ -74,7 +80,9 @@ const Navbar = () => {
           <a
             href="/"
             className={`font-medium transition ${
-              scrolled ? "text-gray-600 hover:text-gray-900" : "text-white hover:text-gray-200"
+              scrolled
+                ? "text-gray-600 hover:text-gray-900"
+                : "text-white hover:text-gray-200"
             }`}
           >
             Contact Us

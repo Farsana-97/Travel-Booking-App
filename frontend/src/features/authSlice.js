@@ -19,9 +19,11 @@ export const registerUser = createAsyncThunk("auth/register", async (data) => {
 export const loginUser = createAsyncThunk("auth/login", async (data) => {
   try {
     const res = await axiosInstance.post("/auth/login", data);
+    console.log(res)
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.role);
+      localStorage.setItem("userId", res.data.userId);
     }
     return res.data;
   } catch (err) {
@@ -42,6 +44,7 @@ const authSlice = createSlice({
     logout: (state) => {
       localStorage.removeItem("token");
       localStorage.removeItem("role");
+      localStorage.removeItem("userId");
       state.user = null;
       state.token = null;
     },
@@ -59,7 +62,7 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.error || "Registration failed";
+        state.error = action.payload?.error;
       })
 
       .addCase(loginUser.fulfilled, (state, action) => {
@@ -72,7 +75,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.error || "Login failed";
+        state.error = action.payload?.error;
       });
   },
 });

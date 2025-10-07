@@ -6,11 +6,13 @@ import {
   deletePackage,
   addPackage,
 } from "../../features/packageSlice";
+import { fetchDestination } from "../../features/destinationSlice";
 import { Admin } from "./Admin";
 
 export const Package = () => {
   const dispatch = useDispatch();
   const { packages, loading } = useSelector((state) => state.package);
+  const { destinations } = useSelector((state) => state.destination);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -27,6 +29,7 @@ export const Package = () => {
 
   useEffect(() => {
     dispatch(fetchPackage());
+    dispatch(fetchDestination());
   }, [dispatch]);
 
   const handleChange = (e) => {
@@ -40,12 +43,17 @@ export const Package = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const itineraryArray = formData.itinerary.split(",").map((i) => i.trim());
+
     const data = new FormData();
     Object.keys(formData).forEach((key) => {
       if (key === "images" && formData.images) {
         for (let i = 0; i < formData.images.length; i++) {
           data.append("images", formData.images[i]);
         }
+      } else if (key === "itinerary") {
+        data.append(key, JSON.stringify(itineraryArray));
       } else {
         data.append(key, formData[key]);
       }
@@ -73,6 +81,7 @@ export const Package = () => {
       images: null,
     });
   };
+
   return (
     <Admin>
       <div className="p-6 max-w-6xl mx-auto">
@@ -92,15 +101,22 @@ export const Package = () => {
               className="border p-2 rounded w-full"
               required
             />
-            <input
-              type="text"
+
+            <select
               name="destination"
-              placeholder="Destination ID"
               value={formData.destination}
               onChange={handleChange}
               className="border p-2 rounded w-full"
               required
-            />
+            >
+              <option value="">Select Destination</option>
+              {destinations?.map((dest) => (
+                <option key={dest._id} value={dest._id}>
+                  {dest.name} ({dest.country})
+                </option>
+              ))}
+            </select>
+
             <input
               type="number"
               name="price"
@@ -183,18 +199,17 @@ export const Package = () => {
               {packages?.map((pkg) => (
                 <tr key={pkg._id} className="hover:bg-gray-50">
                   <td className="border p-2">{pkg.title}</td>
-                  <td className="border p-2">{pkg.destination.name}</td>
+                  <td className="border p-2">{pkg.destination?.name}</td>
                   <td className="border p-2">{pkg.description}</td>
                   <td className="border p-2">{pkg.itinerary.join(", ")}</td>
                   <td className="border p-2 flex gap-2 flex-wrap">
-                    {pkg.images?.map((img, i) => (
+                    {pkg.images?.[0] && (
                       <img
-                        key={i}
-                        src={img}
-                        alt={`Package ${i}`}
+                        src={pkg.images[0]}
+                        alt=""
                         className="w-16 h-16 object-cover rounded"
                       />
-                    ))}
+                    )}
                   </td>
                   <td className="border p-2">${pkg.price}</td>
                   <td className="border p-2">
@@ -207,13 +222,13 @@ export const Package = () => {
                         setEditId(pkg._id);
                         setFormData({
                           title: pkg.title,
-                          destination: pkg.destination._id || pkg.destination,
+                          destination: pkg.destination?._id || "",
                           description: pkg.description,
                           itinerary: pkg.itinerary.join(", "),
                           price: pkg.price,
                           availableFrom: pkg.availableFrom?.slice(0, 10),
                           availableTo: pkg.availableTo?.slice(0, 10),
-                          images: null,
+                          images: pkg.images,
                         });
                       }}
                       className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded"

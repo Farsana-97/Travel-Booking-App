@@ -31,8 +31,8 @@ export const paymentSession = async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: "http://localhost:5173/success",
-      cancel_url: "http://localhost:5173/cancel",
+      success_url: `http://localhost:5173/payment-success/${bookingId}`,
+      cancel_url: `http://localhost:5173/payment-cancel/${bookingId}`,
     });
 
     const payment = await Payment.create({
@@ -53,6 +53,29 @@ export const getPayments = async (req, res) => {
     const payments = await Payment.find()
      .populate("user", "username");
     res.json(payments);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+export const updatePaymentStatus = async (req, res) => {
+  try {
+    const { sessionId, status } = req.body;
+
+    if (!sessionId || !status) {
+      return res.status(400).json({ error: "Missing sessionId or status" });
+    }
+
+    const payment = await Payment.findOneAndUpdate(
+      { transactionId: sessionId },
+      { status },
+      { new: true }
+    );
+
+    if (!payment) return res.status(404).json({ error: "Payment not found" });
+
+    res.json({ message: "Payment status updated", payment });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

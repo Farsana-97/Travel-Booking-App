@@ -25,7 +25,7 @@ export const Login = () => {
       if (result.role === "admin") {
         navigate("/admin");
       } else {
-        navigate("/user");
+        navigate("/package-view");
       }
     } catch (err) {
       console.error("Login failed", err);
