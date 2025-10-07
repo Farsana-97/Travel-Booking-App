@@ -5,7 +5,7 @@ import axiosInstance from "../axiosInstance";
 
 export const fetchPackage = createAsyncThunk("packages/fetch", async (data) => {
   try {
-    let res = await axiosInstance.get("/package", data);
+    let res = await axiosInstance.get("/api/package", data);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -18,7 +18,7 @@ export const fetchPackageById = createAsyncThunk(
   "packages/fetchbyId",
   async (id) => {
     try {
-      let res = await axiosInstance.get(`/package/${id}`);
+      let res = await axiosInstance.get(`/api/package/${id}`);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -30,7 +30,7 @@ export const fetchPackageById = createAsyncThunk(
 
 export const addPackage = createAsyncThunk("packages/add", async (data) => {
   try {
-    let res = await axiosInstance.post("/package/add", data);
+    let res = await axiosInstance.post("/api/package/add", data);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -43,7 +43,7 @@ export const editPackage = createAsyncThunk(
   "packages/edit",
   async ({ id, data }) => {
     try {
-      const res = await axiosInstance.put(`/package/${id}`, data);
+      const res = await axiosInstance.put(`/api/package/${id}`, data);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -55,7 +55,7 @@ export const editPackage = createAsyncThunk(
 
 export const deletePackage = createAsyncThunk("packages/delete", async (id) => {
   try {
-    const res = await axiosInstance.delete(`/package/${id}`);
+    const res = await axiosInstance.delete(`/api/package/${id}`);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -72,7 +72,7 @@ export const fetchFilteredPackages = createAsyncThunk(
       if (value) params.append(key, value);
     });
 
-    const res = await axiosInstance.get(`/package/filter?${params.toString()}`);
+    const res = await axiosInstance.get(`/api/package/filter?${params.toString()}`);
     return res.data;
   }
 );

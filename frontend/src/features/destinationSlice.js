@@ -6,7 +6,7 @@ export const fetchDestination = createAsyncThunk(
   "destination/fetch",
   async (data) => {
     try {
-      let res = await axiosInstance.get("/destination", data);
+      let res = await axiosInstance.get("/api/destination", data);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -18,7 +18,7 @@ export const addDestination = createAsyncThunk(
   "destination/add",
   async (data) => {
     try {
-      let res = await axiosInstance.post("/destination", data);
+      let res = await axiosInstance.post("/api/destination", data);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -30,7 +30,7 @@ export const editDestination = createAsyncThunk(
   "destination/edit",
   async ({ id, data }) => {
     try {
-      const res = await axiosInstance.put(`/destination/${id}`, data);
+      const res = await axiosInstance.put(`/api/destination/${id}`, data);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -42,7 +42,7 @@ export const deleteDestination = createAsyncThunk(
   "destination/delete",
   async (id) => {
     try {
-      const res = await axiosInstance.delete(`/destination/${id}`);
+      const res = await axiosInstance.delete(`/api/destination/${id}`);
       return res.data;
     } catch (error) {
       console.log(error);

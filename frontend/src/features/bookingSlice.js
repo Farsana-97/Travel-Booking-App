@@ -5,7 +5,7 @@ import axiosInstance from "../axiosInstance";
 
 export const fetchBooking = createAsyncThunk("bookings/fetch", async (data) => {
   try {
-    let res = await axiosInstance.get("/booking", data);
+    let res = await axiosInstance.get("/api/booking", data);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -16,7 +16,7 @@ export const fetchBooking = createAsyncThunk("bookings/fetch", async (data) => {
 
 export const addBooking = createAsyncThunk("bookings/book", async (data) => {
   try {
-    let res = await axiosInstance.post("/booking", data);
+    let res = await axiosInstance.post("/api/booking", data);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -28,7 +28,7 @@ export const addBooking = createAsyncThunk("bookings/book", async (data) => {
 export const fetchBookingById = createAsyncThunk(
   "booking/fetchById",
   async (id) => {
-    const res = await axiosInstance.get(`/booking/bookingById/${id}`);
+    const res = await axiosInstance.get(`/api/booking/bookingById/${id}`);
     return res.data;
   }
 );
@@ -38,7 +38,7 @@ export const fetchBookingById = createAsyncThunk(
 export const fetchUserBooking = createAsyncThunk(
   "booking/fetchUser",
   async (userId) => {
-    const res = await axiosInstance.get(`/booking/${userId}`);
+    const res = await axiosInstance.get(`/api/booking/${userId}`);
     return res.data;
   }
 );

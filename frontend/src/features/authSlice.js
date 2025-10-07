@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 export const registerUser = createAsyncThunk("auth/register", async (data) => {
   try {
-    let res = await axiosInstance.post("/auth/register", data);
+    let res = await axiosInstance.post("/api/auth/register", data);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -18,7 +18,7 @@ export const registerUser = createAsyncThunk("auth/register", async (data) => {
 
 export const loginUser = createAsyncThunk("auth/login", async (data) => {
   try {
-    const res = await axiosInstance.post("/auth/login", data);
+    const res = await axiosInstance.post("/api/auth/login", data);
     console.log(res)
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);

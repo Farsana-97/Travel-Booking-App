@@ -7,7 +7,7 @@ export const fetchPayments = createAsyncThunk(
   "payments/fetch",
   async (data) => {
     try {
-      let res = await axiosInstance.get("/payment", data);
+      let res = await axiosInstance.get("/api/payment", data);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -21,7 +21,7 @@ export const addPaymentSession = createAsyncThunk(
   "payments/addPayment",
   async (data) => {
     try {
-      let res = await axiosInstance.post("/payment", data);
+      let res = await axiosInstance.post("/api/payment", data);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -34,7 +34,7 @@ export const addPaymentSession = createAsyncThunk(
 export const updatePaymentStatus = createAsyncThunk(
   "payments/updateStatus",
   async ({ sessionId, status }) => {
-    const res = await axiosInstance.post("/payment/update", {
+    const res = await axiosInstance.post("/api/payment/update", {
       sessionId,
       status,
     });
