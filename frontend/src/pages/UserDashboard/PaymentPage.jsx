@@ -50,6 +50,10 @@ export const PaymentPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
+      <section
+        className="relative bg-black bg-center h-20 flex items-center justify-center text-white"
+      >
+      </section>
 
       <section className="py-16 px-4 flex justify-center">
         <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-lg">
