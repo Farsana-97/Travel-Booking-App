@@ -19,7 +19,7 @@ export const registerUser = createAsyncThunk("auth/register", async (data) => {
 export const loginUser = createAsyncThunk("auth/login", async (data) => {
   try {
     const res = await axiosInstance.post("/api/auth/login", data);
-    console.log(res)
+    console.log("hello")
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.role);

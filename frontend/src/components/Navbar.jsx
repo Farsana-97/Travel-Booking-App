@@ -58,7 +58,7 @@ const Navbar = () => {
             About Us
           </a>
           <a
-            href="#pricing"
+            href="/destination-view"
             className={`font-medium transition ${
               scrolled
                 ? "text-gray-600 hover:text-gray-900"

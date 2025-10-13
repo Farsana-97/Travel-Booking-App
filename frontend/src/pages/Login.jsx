@@ -21,6 +21,7 @@ export const Login = () => {
     e.preventDefault();
     try {
       const result = await dispatch(loginUser(data)).unwrap();
+      console.log(result)
 
       if (result.role === "admin") {
         navigate("/admin");

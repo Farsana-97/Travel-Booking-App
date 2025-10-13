@@ -43,6 +43,14 @@ export const fetchUserBooking = createAsyncThunk(
   }
 );
 
+export const cancelBooking = createAsyncThunk(
+  "booking/cancelBooking",
+  async ({ id, status }) => {
+    const res = await axiosInstance.put(`/api/booking/cancel/${id}`, { status });
+    return res.data;
+  }
+);
+
 const bookingSlice = createSlice({
   name: "booking",
   initialState: {
@@ -68,6 +76,11 @@ const bookingSlice = createSlice({
       .addCase(fetchUserBooking.fulfilled, (state, action) => {
         state.loading = false;
         state.bookings = action.payload;
+      })
+      .addCase(cancelBooking.fulfilled, (state, action) => {
+        const updated = action.payload.booking;
+        const index = state.bookings.findIndex((b) => b._id === updated._id);
+        if (index !== -1) state.bookings[index] = updated;
       });
   },
 });

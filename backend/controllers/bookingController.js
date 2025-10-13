@@ -69,3 +69,26 @@ export const getBookingById = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+export const cancelBooking = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const booking = await Booking.findByIdAndUpdate(
+      id,
+      { status: "cancelled" },
+      { new: true }
+    )
+      .populate("user", "email username")
+      .populate("package", "title");
+
+
+    res.status(200).json({
+      message: "Booking cancelled successfully",
+      booking,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

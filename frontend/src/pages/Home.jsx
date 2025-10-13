@@ -53,56 +53,50 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 px-10 py-16 gap-8 items-center">
-        <div className="grid grid-cols-2 gap-2  place-items-center">
-          <img
-            src="https://picsum.photos/id/1015/400/400"
-            alt="Activities"
-            className="rounded-lg shadow-lg object-cover w-90 h-80"
-          />
-          <img
-            src="https://picsum.photos/id/1016/400/400"
-            alt="Travel"
-            className="rounded-lg shadow-lg object-cover w-90 h-80"
-          />
-          <img
-            src="https://picsum.photos/id/1018/400/400"
-            alt="Guide"
-            className="rounded-lg shadow-lg object-cover w-90 h-80"
-          />
-          <img
-            src="https://picsum.photos/id/1020/400/400"
-            alt="Location"
-            className="rounded-lg shadow-lg object-cover w-90 h-80"
-          />
-        </div>
-
+        <section className="bg-white py-20">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        {/* LEFT TEXT SECTION */}
         <div>
-          <p className="text-orange-500 text-2xl font-serif mb-2 italic">
-            Welcome to Travel Mate
+          <p className="text-orange-500 font-semibold uppercase tracking-wide mb-3">
+            About Us
           </p>
-          <h2 className="text-6xl font-extrabold text-gray-800 leading-tight mb-8">
-            It's time to start your adventure
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-snug mb-6">
+            Explore All Corners of <br /> The World With Us
           </h2>
-
-          <p className="text-gray-600 mb-6 leading-relaxed">
-            A small river named Duden flows by their place and supplies it with
-            the necessary regellalia. It is a paradisematic country, in which
-            roasted parts of sentences fly into your mouth.
-          </p>
-
-          <p className="text-gray-600 mb-10 leading-relaxed">
+          <p className="text-gray-600 mb-4">
             Far far away, behind the word mountains, far from the countries
             Vokalia and Consonantia, there live the blind texts. Separated they
             live in Bookmarksgrove right at the coast of the Semantics, a large
-            language ocean. A small river named Duden flows by their place and
-            supplies it with the necessary regellalia.
+            language ocean.
           </p>
-          <button className="mt-6 px-6 py-3 bg-orange-600 text-white font-medium rounded-md shadow hover:bg-orange-700 transition">
-            Search Destination
+          <p className="text-gray-600 mb-8">
+            A small river named Duden flows by their place and supplies it with
+            the necessary regelialia. It is a paradisematic country, in which
+            roasted parts of sentences fly into your mouth.
+          </p>
+          <button className="bg-orange-500 text-white px-6 py-3 rounded-full font-medium shadow-md hover:bg-orange-600 transition">
+            Read more
           </button>
         </div>
-      </section>
+
+        {/* RIGHT IMAGES SECTION */}
+        <div className="relative flex justify-center lg:justify-end">
+          {/* Left Tall Image */}
+          <img
+            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            alt="Beach Resort"
+            className="w-60 md:w-72 lg:w-80 h-96 object-cover rounded-lg shadow-lg"
+          />
+
+          <img
+            src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=600&q=80"
+            alt="Water Jet Ski"
+            className="w-60 md:w-64 lg:w-72 h-80 object-cover rounded-lg shadow-lg absolute top-10 -right-10"
+          />
+        </div>
+      </div>
+    </section>
 
       <section id="destination" className="bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -138,7 +132,7 @@ export const Home = () => {
                       <img
                         src={d.imageUrl}
                         alt={d.name}
-                        className="w-full h-64 object-cover"
+                        className="w-full h-95 object-cover"
                       />
                       <div className="p-4 pb-9">
                         <h2 className="text-lg font-serif">{d.name}</h2>

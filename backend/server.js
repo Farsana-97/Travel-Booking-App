@@ -18,6 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({origin:'https://travel-booking-app-swart.vercel.app'}))
 
+// app.use(cors({origin:'http://localhost:5173'}))
+
 
 app.use("/api/auth", authRouter);
 app.use("/api/destination", destiRouter);

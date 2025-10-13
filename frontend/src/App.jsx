@@ -15,6 +15,7 @@ import { BookingPage } from "./pages/UserDashboard/BookingPage";
 import { PaymentPage } from "./pages/UserDashboard/PaymentPage";
 import { SuccessPage } from "./components/SuccessPage";
 import { ViewMyBooking } from "./pages/UserDashboard/ViewMyBooking";
+import { ViewDestination } from "./pages/UserDashboard/ViewDestination";
 
 function App() {
   return (
@@ -70,6 +71,8 @@ function App() {
         <Route path="/payment-session/:bookingId" element={<PaymentPage />} />
         <Route path="/payment-success/:sessionId" element={<SuccessPage />} />
         <Route path="/view-my-booking/:id" element={<ViewMyBooking />} />
+        <Route path="/destination-view" element={<ViewDestination />}></Route>
+
 
       </Routes>
     </div>
