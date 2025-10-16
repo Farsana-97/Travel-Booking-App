@@ -1,5 +1,5 @@
 import express from "express"
-import { addBooking, cancelBooking, filterBookingStatus, getAllBookings, getBookingById, getBookingByUserId } from "../controllers/bookingController.js"
+import { addBooking, cancelBooking, getAllBookings, getBookingById, getBookingByUserId } from "../controllers/bookingController.js"
 import { admin, authMiddleware } from "../middlewares/authMiddleware.js"
 
 const bookingRouter = express.Router()
