@@ -1,4 +1,6 @@
 import Booking from "../models/Booking.js";
+import { bookingCancelled } from "../templetes/bookingCancelled.js";
+import { sendEmail } from "../config/sendEmail.js";
 
 // Add Booking
 
@@ -12,6 +14,7 @@ export const addBooking = async (req, res) => {
       totalPersons,
       travelDate,
       totalAmount,
+      
     });
 
     res.status(201).json({
@@ -23,12 +26,16 @@ export const addBooking = async (req, res) => {
   }
 };
 
-
 // Get All Bookings
 
 export const getAllBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find()
+    const { status } = req.query;
+    const filter = {};
+
+    if (status && status !== "all") filter.bookingStatus = status;
+
+    const bookings = await Booking.find(filter)
       .populate("user", "username")
       .populate("package", "title");
 
@@ -37,7 +44,6 @@ export const getAllBookings = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 //Get booking for a user
 
@@ -55,13 +61,12 @@ export const getBookingByUserId = async (req, res) => {
   }
 };
 
-
 export const getBookingById = async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id)
       .populate("user", "username email")
       .populate("package", "title price");
-    
+
     if (!booking) return res.status(404).json({ message: "Booking not found" });
 
     res.json(booking);
@@ -70,6 +75,7 @@ export const getBookingById = async (req, res) => {
   }
 };
 
+// Cancal Booking With Notification
 
 export const cancelBooking = async (req, res) => {
   try {
@@ -77,12 +83,25 @@ export const cancelBooking = async (req, res) => {
 
     const booking = await Booking.findByIdAndUpdate(
       id,
-      { status: "cancelled" },
+      { bookingStatus: "cancelled" },
       { new: true }
-    )
-      .populate("user", "email username")
+    ).populate("user", "email username")
       .populate("package", "title");
 
+    console.log(booking);
+
+    // console.log(booking.user.email);
+
+    const { subject, html, text } = bookingCancelled(
+      booking.user.username,
+      booking._id,
+      booking.package.title,
+      booking.totalAmount
+    );
+
+    const mail = await sendEmail(booking.user.email,"Booking Cancelled & Refunded – TravelVista",html,text);
+
+    // console.log(mail);
 
     res.status(200).json({
       message: "Booking cancelled successfully",
@@ -92,3 +111,8 @@ export const cancelBooking = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+
+
+

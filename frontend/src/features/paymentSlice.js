@@ -29,18 +29,7 @@ export const addPaymentSession = createAsyncThunk(
   }
 );
 
-// Update Status
 
-export const updatePaymentStatus = createAsyncThunk(
-  "payments/updateStatus",
-  async ({ sessionId, status }) => {
-    const res = await axiosInstance.post("/api/payment/update", {
-      sessionId,
-      status,
-    });
-    return res.data;
-  }
-);
 
 const paymentSlice = createSlice({
   name: "payment",
@@ -63,10 +52,6 @@ const paymentSlice = createSlice({
         state.session = action.payload;
       })
 
-      .addCase(updatePaymentStatus.fulfilled, (state, action) => {
-        state.loading = false;
-        state.updatedPayment = action.payload;
-      });
   },
 });
 

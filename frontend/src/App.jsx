@@ -16,6 +16,8 @@ import { PaymentPage } from "./pages/UserDashboard/PaymentPage";
 import { SuccessPage } from "./components/SuccessPage";
 import { ViewMyBooking } from "./pages/UserDashboard/ViewMyBooking";
 import { ViewDestination } from "./pages/UserDashboard/ViewDestination";
+import { AboutUs } from "./pages/AboutUs";
+import { AdminProtected } from "./components/AdminProtected";
 
 function App() {
   return (
@@ -27,53 +29,80 @@ function App() {
         <Route
           path="/destination"
           element={
-            <ProtectedRoute>
+            <AdminProtected>
               <Destination />
-            </ProtectedRoute>
+            </AdminProtected>
           }
         ></Route>
         <Route
           path="/admin"
           element={
-            <ProtectedRoute>
+            <AdminProtected>
               <Admin />
-            </ProtectedRoute>
+            </AdminProtected>
           }
         ></Route>
         <Route
           path="/packages"
           element={
-            <ProtectedRoute>
+            <AdminProtected>
               <Package />
-            </ProtectedRoute>
+            </AdminProtected>
           }
         ></Route>
         <Route
           path="/bookings"
           element={
-            <ProtectedRoute>
+            <AdminProtected>
               <Booking />
-            </ProtectedRoute>
+            </AdminProtected>
           }
         ></Route>
         <Route
           path="/payments"
           element={
-            <ProtectedRoute>
+            <AdminProtected>
               <Payments />
-            </ProtectedRoute>
+            </AdminProtected>
           }
         ></Route>
         <Route path="/package-view" element={<PackagePage />}></Route>
         <Route path="/package-view/:id" element={<PackageDetail />}></Route>
-        
-        <Route path="/book-your-pkg/:id" element={<BookingPage />}></Route>
-        <Route path="/payment-session/:bookingId" element={<PaymentPage />} />
-        <Route path="/payment-success/:sessionId" element={<SuccessPage />} />
-        <Route path="/view-my-booking/:id" element={<ViewMyBooking />} />
+
+        <Route
+          path="/book-your-pkg/:id"
+          element={
+            <ProtectedRoute>
+              <BookingPage />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/payment-session/:bookingId"
+          element={
+            <ProtectedRoute>
+              <PaymentPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payment-success/:sessionId"
+          element={
+            <ProtectedRoute>
+              <SuccessPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/view-my-booking/:id"
+          element={
+            <ProtectedRoute>
+              <ViewMyBooking />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/destination-view" element={<ViewDestination />}></Route>
-
-
+        <Route path="/about-us" element={<AboutUs />}></Route>
       </Routes>
     </div>
   );

@@ -16,9 +16,14 @@ export const Register = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(registerUser(data));
+    try {
+      const result = await dispatch(registerUser(data)).unwrap();
+      console.log(result);
+    } catch (err) {
+      console.error("Registration failed", err);
+    }
     navigate("/login");
   };
 

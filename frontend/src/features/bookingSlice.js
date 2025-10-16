@@ -3,14 +3,15 @@ import axiosInstance from "../axiosInstance";
 
 // Get all bookings
 
-export const fetchBooking = createAsyncThunk("bookings/fetch", async (data) => {
+export const fetchBooking = createAsyncThunk("bookings/fetch", async (status = "all") => {
   try {
-    let res = await axiosInstance.get("/api/booking", data);
+    const res = await axiosInstance.get(`/api/booking?status=${status}`);
     return res.data;
   } catch (error) {
     console.log(error);
   }
 });
+
 
 // Add booking
 
@@ -29,6 +30,7 @@ export const fetchBookingById = createAsyncThunk(
   "booking/fetchById",
   async (id) => {
     const res = await axiosInstance.get(`/api/booking/bookingById/${id}`);
+    console.log(res)
     return res.data;
   }
 );
@@ -43,6 +45,9 @@ export const fetchUserBooking = createAsyncThunk(
   }
 );
 
+// Cancel Booking 
+
+
 export const cancelBooking = createAsyncThunk(
   "booking/cancelBooking",
   async ({ id, status }) => {
@@ -50,6 +55,9 @@ export const cancelBooking = createAsyncThunk(
     return res.data;
   }
 );
+
+
+
 
 const bookingSlice = createSlice({
   name: "booking",
@@ -72,6 +80,7 @@ const bookingSlice = createSlice({
       })
       .addCase(fetchBookingById.fulfilled, (state, action) => {
         state.currentBooking = action.payload;
+        console.log(action.payload)
       })
       .addCase(fetchUserBooking.fulfilled, (state, action) => {
         state.loading = false;

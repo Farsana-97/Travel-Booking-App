@@ -50,12 +50,15 @@ export const PaymentPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <section
-        className="relative bg-black bg-center h-20 flex items-center justify-center text-white"
+      <div
+        className="min-h-screen flex items-center justify-center bg-cover bg-center "
+        style={{
+          backgroundImage:
+            "url(https://res.cloudinary.com/dphm3tlqe/image/upload/v1760612157/hero2_weyuap.jpg)",
+        }}
       >
-      </section>
 
-      <section className="py-16 px-4 flex justify-center">
+      <section className="py-16 px-4 flex justify-center w-1000">
         <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-lg">
           <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
             Confirm Your Payment
@@ -119,6 +122,7 @@ export const PaymentPage = () => {
           </p>
         </div>
       </section>
+      </div>
     </div>
   );
 };

@@ -1,57 +1,41 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchDestination } from "../features/destinationSlice";
-import { useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import {
-  FaSuitcaseRolling,
-  FaUserFriends,
-  FaTrophy,
-  FaStar,
+  FaCalendarAlt,
+  FaGlobe,
   FaMapMarkedAlt,
-  FaUsers,
+  FaParachuteBox,
   FaSmile,
+  FaUsers,
+  FaStar,
   FaQuoteLeft,
 } from "react-icons/fa";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import FooterPage from "../components/FooterPage";
 
-export const Home = () => {
-  const dispatch = useDispatch();
-  const { destinations } = useSelector((state) => state.destination);
-  useEffect(() => {
-    dispatch(fetchDestination());
-  }, [dispatch]);
-
+export const AboutUs = () => {
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <section className="relative w-full h-screen">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url(https://res.cloudinary.com/dphm3tlqe/image/upload/v1760612159/hero4_qooold.jpg)",
-          }}
-        ></div>
-
-        <div className="absolute inset-0  bg-opacity-50"></div>
-
-        <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-6">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-            Explore the World with TravelMate
-          </h1>
-          <p className="text-lg md:text-2xl text-gray-200 mb-8 drop-shadow-md">
-            Find your perfect destination and book your dream vacation easily
+      <section
+        className="relative bg-cover bg-center h-72 flex items-center justify-center text-white"
+        style={{
+          backgroundImage:
+            "url(https://res.cloudinary.com/dphm3tlqe/image/upload/v1760612146/img5_nq25ri.jpg)",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative z-10 text-center">
+          <h1 className="text-4xl font-bold mb-2">About Us</h1>
+          <p className="text-gray-200">
+            Home › <span className="text-green-400">About Us</span>
           </p>
-
-          
         </div>
       </section>
 
@@ -59,9 +43,9 @@ export const Home = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12 px-6">
           <div className="order-1 lg:order-none">
             <img
-              src="https://res.cloudinary.com/dphm3tlqe/image/upload/v1760612011/img2_vwkeh5.jpg"
+              src="https://res.cloudinary.com/dphm3tlqe/image/upload/v1760611988/image3_zwqkuh.jpg"
               alt="Scenic Village"
-              className="w-full h-[450px] object-cover shadow-lg"
+              className="w-full h-[550px] object-cover shadow-lg"
             />
           </div>
 
@@ -90,92 +74,6 @@ export const Home = () => {
         </div>
       </section>
 
-      <section id="destination" className="bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <p className="text-lg text-gray-500 font-medium uppercase tracking-widest">
-              Top Selling
-            </p>
-            <h2 className="text-5xl font-serif text-indigo-900 mt-3 leading-snug">
-              Popular Destinations
-            </h2>
-          </div>
-
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
-            {destinations.length > 0 ? (
-              <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
-                spaceBetween={20}
-                slidesPerView={3}
-                loop={true}
-                autoplay={{ delay: 2500 }}
-                pagination={{ clickable: true }}
-                navigation={true}
-                breakpoints={{
-                  320: { slidesPerView: 1 },
-                  768: { slidesPerView: 2 },
-                  1024: { slidesPerView: 3 },
-                }}
-                className="pb-10"
-              >
-                {destinations.map((d) => (
-                  <SwiperSlide key={d._id || d.id}>
-                    <div className="bg-white overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300">
-                      <img
-                        src={d.imageUrl}
-                        alt={d.name}
-                        className="w-full h-95 object-cover"
-                      />
-                      <div className="p-4 pb-9">
-                        <h2 className="text-lg font-serif">{d.name}</h2>
-                        <p className="text-gray-600">{d.country}</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            ) : (
-              <p className="border p-2 text-center">No destinations found</p>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section
-        className="relative bg-cover bg-center mt-14 mb-14 bg-no-repeat py-20 px-6 md:px-16"
-        style={{
-          backgroundImage:
-            "url(https://res.cloudinary.com/dphm3tlqe/image/upload/v1760612028/img3_tenhuf.jpg)",
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent"></div>
-
-        <div className="relative max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
-          <div className="bg-white shadow-xl rounded-3xl grid grid-cols-2 divide-x divide-y divide-gray-200 w-full max-w-xl">
-            <div className="flex flex-col items-center justify-center p-8">
-              <FaSuitcaseRolling className="text-green-600 text-4xl mb-3" />
-              <h3 className="text-3xl font-bold text-gray-900">30k+</h3>
-              <p className="text-gray-600 text-sm mt-1">Tours Success</p>
-            </div>
-            <div className="flex flex-col items-center justify-center p-8">
-              <FaUserFriends className="text-green-600 text-4xl mb-3" />
-              <h3 className="text-3xl font-bold text-gray-900">6,500+</h3>
-              <p className="text-gray-600 text-sm mt-1">Happy Traveler</p>
-            </div>
-            <div className="flex flex-col items-center justify-center p-8">
-              <FaTrophy className="text-green-600 text-4xl mb-3" />
-              <h3 className="text-3xl font-bold text-gray-900">6,561+</h3>
-              <p className="text-gray-600 text-sm mt-1">Awards Winning</p>
-            </div>
-            <div className="flex flex-col items-center justify-center p-8">
-              <FaStar className="text-green-600 text-4xl mb-3" />
-              <h3 className="text-3xl font-bold text-gray-900">25+</h3>
-              <p className="text-gray-600 text-sm mt-1">Our Experience</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="relative py-20 bg-gradient-to-b from-white to-green-50 overflow-hidden">
         <div className="absolute top-[35%] w-full hidden md:block z-0">
           <svg
@@ -199,7 +97,7 @@ export const Home = () => {
             How It Works
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 text-gray-900">
-            Step By Step
+            Our Step by Step
           </h2>
         </div>
 
@@ -232,7 +130,7 @@ export const Home = () => {
               </div>
             </div>
             <h3 className="text-xl font-semibold mb-3 text-gray-800">
-              Make a Booking
+              Make An Booking
             </h3>
             <p className="text-gray-500 text-sm leading-relaxed max-w-xs mx-auto">
               Integer feugiat tortor non, there are many other nullam. In a free
@@ -256,6 +154,74 @@ export const Home = () => {
               In a free hour, when our power of choice is untrammelled and when
               nothing prevents non there.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative py-20 bg-gradient-to-b from-white to-green-50 overflow-hidden">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
+          <div className="flex gap-6 flex-1 justify-center">
+            <div className="flex flex-col gap-6">
+              <img
+                src="https://res.cloudinary.com/dphm3tlqe/image/upload/v1759406671/TravelImages/s39d7zjtehop4knh7zri.jpg"
+                alt="Castle"
+                className="w-48 h-64 md:w-56 md:h-72 object-cover rounded-[3rem]"
+              />
+              <img
+                src="https://res.cloudinary.com/dphm3tlqe/image/upload/v1759403681/TravelImages/ft63lbxf2ovb53zratij.jpg"
+                alt="Beach"
+                className="w-48 h-64 md:w-56 md:h-72 object-cover rounded-[3rem]"
+              />
+            </div>
+            <img
+              src="https://res.cloudinary.com/dphm3tlqe/image/upload/v1760611962/image1_qjfmie.jpg"
+              alt="Eiffel Tower"
+              className="w-48 h-[35rem] md:w-84 md:h-[37rem] object-cover rounded-[3rem]"
+            />
+          </div>
+
+          <div className="flex-1 text-center md:text-left">
+            <span className="inline-block bg-orange-100 text-orange-600 text-sm font-semibold px-4 py-1 rounded-full mb-4">
+              Why Choose Us
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
+              Get The <span className="text-green-600 italic">Best Travel</span>{" "}
+              Experience With Gotur
+            </h2>
+            <p className="text-gray-500 max-w-lg mx-auto md:mx-0 mb-8">
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout.
+            </p>
+
+            <div className="grid grid-cols-2 gap-4 max-w-md mx-auto md:mx-0">
+              <div className="flex items-center gap-3 p-4 bg-green-100/50 rounded-xl border border-green-200 hover:bg-green-100 transition">
+                <FaMapMarkedAlt className="text-green-600 text-2xl" />
+                <span className="font-semibold text-gray-700 text-sm">
+                  Trusted Travel Guide
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3 p-4 bg-green-100/50 rounded-xl border border-green-200 hover:bg-green-100 transition">
+                <FaCalendarAlt className="text-green-600 text-2xl" />
+                <span className="font-semibold text-gray-700 text-sm">
+                  Instant Booking
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3 p-4 bg-green-100/50 rounded-xl border border-green-200 hover:bg-green-100 transition">
+                <FaGlobe className="text-green-600 text-2xl" />
+                <span className="font-semibold text-gray-700 text-sm">
+                  World Class Travel
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3 p-4 bg-green-100/50 rounded-xl border border-green-200 hover:bg-green-100 transition">
+                <FaParachuteBox className="text-green-600 text-2xl" />
+                <span className="font-semibold text-gray-700 text-sm">
+                  Adventure
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -300,7 +266,7 @@ export const Home = () => {
                     <h3 className="text-lg font-semibold text-gray-800">
                       Courtney Henry
                     </h3>
-                   
+
                     <p className="text-gray-600 text-sm leading-relaxed mb-4">
                       Consectetur adipiscing elit. Integer nunc viverra laoreet
                       est the is porta pretium metus aliquam eget maecenas porta

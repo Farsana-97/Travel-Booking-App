@@ -8,12 +8,11 @@ import {
 } from "../../features/destinationSlice";
 import { useSelector } from "react-redux";
 import { Admin } from "./Admin";
+import toast from "react-hot-toast";
 
 export const Destination = () => {
   const dispatch = useDispatch();
-  const { destinations, loading } = useSelector(
-    (state) => state.destination
-  );
+  const { destinations, loading } = useSelector((state) => state.destination);
 
   const [name, setName] = useState("");
   const [country, setCountry] = useState("");
@@ -28,32 +27,39 @@ export const Destination = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const formData = new FormData();
     formData.append("name", name);
     formData.append("country", country);
     formData.append("description", description);
     if (image) formData.append("image", image);
 
-    if (editId) {
-      await dispatch(editDestination({ id: editId, data: formData }));
-    } else {
-      await dispatch(addDestination(formData));
+    try {
+      if (editId) {
+        await dispatch(editDestination({ id: editId, data: formData }));
+        toast.success("Destination updated successfully");
+      } else {
+        await dispatch(addDestination(formData));
+        toast.success("New destination added successfully");
+      }
+
+      dispatch(fetchDestination());
+
+      setName("");
+      setCountry("");
+      setDescription("");
+      setImage(null);
+      setEditId(null);
+    } catch (error) {
+      console.error(error);
     }
-
-    dispatch(fetchDestination());
-
-    setName("");
-    setCountry("");
-    setDescription("");
-    setImage(null);
-    setEditId(null);
   };
 
   const handleEdit = (d) => {
     setName(d.name);
     setCountry(d.country);
     setDescription(d.description);
-    setImage(null); 
+    setImage(null);
     setEditId(d._id);
   };
 
@@ -91,6 +97,7 @@ export const Destination = () => {
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             required
           />
+
           <input
             type="file"
             accept="image/*"
@@ -110,7 +117,6 @@ export const Destination = () => {
               ? "Update Destination"
               : "Add Destination"}
           </button>
-
         </form>
 
         <h3 className="text-xl font-semibold mb-3">All Destinations</h3>

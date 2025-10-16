@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 export const registerUser = createAsyncThunk("auth/register", async (data) => {
   try {
     let res = await axiosInstance.post("/api/auth/register", data);
+    console.log(res);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -19,7 +20,7 @@ export const registerUser = createAsyncThunk("auth/register", async (data) => {
 export const loginUser = createAsyncThunk("auth/login", async (data) => {
   try {
     const res = await axiosInstance.post("/api/auth/login", data);
-    console.log("hello")
+    console.log("hello");
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.role);
@@ -31,7 +32,15 @@ export const loginUser = createAsyncThunk("auth/login", async (data) => {
   }
 });
 
-
+export const fetchUsers = createAsyncThunk("auth/fetch", async () => {
+  try {
+    const res = await axiosInstance.get("/api/auth/users");
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -39,6 +48,7 @@ const authSlice = createSlice({
     user: null,
     loading: false,
     error: null,
+    users: [],
   },
   reducers: {
     logout: (state) => {
@@ -55,7 +65,23 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        toast.success("Registration Completed");
+        toast.success(
+          "🎉 Registration Successful!\nWelcome aboard, traveler!",
+          {
+            style: {
+              borderRadius: "12px",
+              background: "#f0fdf4",
+              color: "#166534",
+              border: "1px solid #86efac",
+              fontWeight: "500",
+            },
+            iconTheme: {
+              primary: "#16a34a",
+              secondary: "#f0fdf4",
+            },
+            duration: 4000,
+          }
+        );
       })
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
@@ -68,12 +94,40 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        toast.success("Logined Succeffully Completed");
+        toast.success(
+          "🎉 Welcome To TravelVista!\nYou’re logged in successfully.",
+          {
+            style: {
+              borderRadius: "12px",
+              background: "#f0fdf4",
+              color: "#166534",
+              border: "1px solid #86efac",
+              fontWeight: "500",
+            },
+            iconTheme: {
+              primary: "#16a34a",
+              secondary: "#f0fdf4",
+            },
+            duration: 4000,
+          }
+        );
       })
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.error;
+      })
+
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.users = action.payload;
+      })
+      .addCase(fetchUsers.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.error;
       });

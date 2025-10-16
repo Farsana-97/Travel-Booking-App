@@ -8,6 +8,7 @@ import {
 } from "../../features/packageSlice";
 import { fetchDestination } from "../../features/destinationSlice";
 import { Admin } from "./Admin";
+import toast from "react-hot-toast";
 
 export const Package = () => {
   const dispatch = useDispatch();
@@ -64,8 +65,12 @@ export const Package = () => {
         setEditId(null);
         resetForm();
       });
+      toast.success("Package updated successfully");
+      
     } else {
       dispatch(addPackage(data)).then(() => resetForm());
+      toast.success("New package added successfully");
+      
     }
   };
 
@@ -222,7 +227,7 @@ export const Package = () => {
                         setEditId(pkg._id);
                         setFormData({
                           title: pkg.title,
-                          destination: pkg.destination?._id || "",
+                          destination: pkg.destination?._id,
                           description: pkg.description,
                           itinerary: pkg.itinerary.join(", "),
                           price: pkg.price,
@@ -236,7 +241,13 @@ export const Package = () => {
                       Edit
                     </button>
                     <button
-                      onClick={() => dispatch(deletePackage(pkg._id))}
+                      onClick={() => {
+                        if (window.confirm("Are you sure you want to delete this package?")) {
+                              dispatch(deletePackage(pkg._id));
+                            }
+                            toast.success("Package deleted successfully")
+                        }
+                      }
                       className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
                     >
                       Delete

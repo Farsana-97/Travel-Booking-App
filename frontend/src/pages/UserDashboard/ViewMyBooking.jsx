@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserBooking } from "../../features/bookingSlice";
+import { cancelBooking, fetchUserBooking } from "../../features/bookingSlice";
 import Navbar from "../../components/Navbar";
 import {
   FaCalendarAlt,
@@ -18,10 +18,17 @@ export const ViewMyBooking = () => {
     if (userId) dispatch(fetchUserBooking(userId));
   }, [dispatch, userId]);
 
+  const handleCancelBooking = (id, status) => {
+    if (window.confirm("Are you sure you want to cancel this booking?")) {
+      dispatch(cancelBooking({ id, status }));
+    }
+    dispatch(fetchUserBooking(userId));
+  };
+
   if (loading)
     return (
       <p className="text-center mt-20 text-lg text-gray-600 animate-pulse">
-        Loading bookings...
+        Loading your bookings...
       </p>
     );
   if (error)
@@ -29,76 +36,99 @@ export const ViewMyBooking = () => {
   if (bookings.length === 0)
     return (
       <p className="text-center mt-20 text-lg text-gray-600">
-        No bookings found.
+        No bookings found yet.
       </p>
     );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
       <Navbar />
+
       <section
-        className="relative bg-cover bg-center h-72 flex items-center justify-center text-white"
+        className="relative bg-cover bg-center h-80 flex items-center justify-center text-white"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1350&q=80')",
+            "url(https://res.cloudinary.com/dphm3tlqe/image/upload/v1760612146/img5_nq25ri.jpg)",
         }}
       >
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/40 " />
         <div className="relative z-10 text-center">
-          <h1 className="text-4xl font-bold mb-2">My Bookings</h1>
-          <p>
-            Home › <span className="text-green-400">My Bookings</span>
+          <h1 className="text-5xl font-bold mb-3 drop-shadow-lg">
+            My Bookings
+          </h1>
+          <p className="text-lg">
+            Home ›{" "}
+            <span className="text-yellow-400 font-semibold">Bookings</span>
           </p>
         </div>
       </section>
 
-      <div className="max-w-6xl mx-auto p-6">
-        <div className="flex flex-col gap-6">
+      <div className="max-w-7xl mx-auto p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {bookings.map((b) => (
             <div
               key={b._id}
-              className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200 flex flex-col md:flex-row items-start md:items-center justify-between hover:shadow-2xl transition duration-300"
+              className="relative bg-white/80 backdrop-blur-md border border-gray-200 shadow-xl rounded-3xl p-8 hover:scale-[1.02] hover:shadow-2xl transition-all duration-300"
             >
-              <div className="flex flex-col md:flex-row md:items-center md:gap-8 w-full">
-                <div className="flex flex-col gap-2">
-                  <h2 className="text-2xl font-bold text-gray-900">
+              <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-300 pb-4 mb-4">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-1">
                     {b.package?.title}
                   </h2>
-                  <p className="text-gray-700 flex items-center gap-2">
-                    <FaMapMarkerAlt className="text-indigo-500" />
-                    {b.package?.destination?.name || "N/A"}
+                  <p className="text-gray-700 flex items-center gap-2 text-lg">
+                    <FaMapMarkerAlt className="text-blue-600" />
+                    {b.package?.destination?.name}
                   </p>
                 </div>
 
-                <div className="flex flex-col gap-2 mt-4 md:mt-0">
-                  <p className="text-gray-700 flex items-center gap-2">
-                    <FaCalendarAlt className="text-indigo-500" />
-                    Travel Date: {new Date(b.travelDate).toLocaleDateString()}
-                  </p>
-                  <p className="text-gray-700 flex items-center gap-2">
-                    <FaUsers className="text-indigo-500" />
-                    Total Persons: {b.totalPersons}
-                  </p>
-                  <p className="text-gray-700 flex items-center gap-2">
-                    <FaMoneyBillWave className="text-green-500" />
-                    Total Amount: ₹{b.totalAmount.toFixed(2)}
-                  </p>
+                <div
+                  className={`mt-4 md:mt-0 px-4 py-2 rounded-full font-semibold text-sm ${
+                    b.bookingStatus === "confirmed"
+                      ? "bg-green-100 text-green-700"
+                      : b.bookingStatus === "cancelled"
+                      ? "bg-red-100 text-red-700"
+                      : "bg-gray-100 text-gray-700"
+                  }`}
+                >
+                  {b.bookingStatus.charAt(0).toUpperCase() +
+                    b.bookingStatus.slice(1)}
                 </div>
               </div>
 
-              <p
-                className={`mt-4 md:mt-0 font-semibold text-lg ${
-                  b.bookingStatus === "confirmed"
-                    ? "text-green-600"
-                    : b.bookingStatus === "cancelled"
-                    ? "text-red-600"
-                    : "text-gray-500"
-                }`}
-              >
-                Status:{" "}
-                {b.bookingStatus.charAt(0).toUpperCase() +
-                  b.bookingStatus.slice(1)}
-              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 text-lg">
+                <p className="flex items-center gap-2">
+                  <FaCalendarAlt className="text-blue-500" />
+                  <span className="font-semibold">Travel Date:</span>{" "}
+                  {new Date(b.travelDate).toLocaleDateString()}
+                </p>
+                <p className="flex items-center gap-2">
+                  <FaUsers className="text-blue-500" />
+                  <span className="font-semibold">Total Persons:</span>{" "}
+                  {b.totalPersons}
+                </p>
+                <p className="flex items-center gap-2">
+                  <FaMoneyBillWave className="text-green-500" />
+                  <span className="font-semibold">Total Amount:</span> ₹
+                  {b.totalAmount.toFixed(2)}
+                </p>
+                <p className="flex items-center gap-2">
+                  <span className="font-semibold text-gray-800">
+                    Booking ID:
+                  </span>{" "}
+                  {b._id.slice(-8).toUpperCase()}
+                </p>
+              </div>
+
+              <div className="mt-6 flex justify-end">
+                <button
+                  onClick={() => handleCancelBooking(b._id, "cancelled")}
+                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold hover:from-red-600 hover:to-red-700 shadow-md transition duration-300"
+                >
+                  Cancel Booking
+                </button>
+              </div>
+
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-t-3xl"></div>
             </div>
           ))}
         </div>

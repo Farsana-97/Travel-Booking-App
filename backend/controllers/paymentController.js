@@ -2,6 +2,9 @@ import Stripe from "stripe";
 import dotenv from "dotenv";
 import Booking from "../models/Booking.js";
 import Payment from "../models/Payment.js";
+import User from "../models/User.js";
+import { sendEmail } from "../config/sendEmail.js";
+import { bookingConfirmed } from "../templetes/bookingConfirmed.js";
 
 dotenv.config();
 
@@ -9,7 +12,7 @@ dotenv.config();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Payment checkout session
+// Payment checkout session with notification
 
 export const paymentSession = async (req, res) => {
   try {
@@ -40,13 +43,30 @@ export const paymentSession = async (req, res) => {
       user: userId,
       amount: booking.totalAmount,
       transactionId: session.id,
+
     });
 
     res.status(200).json({ id: session.id, url: session.url, payment });
+
+    const user = await User.findById(userId);
+    const pkg = booking.package;
+
+    const { subject, html, text } = bookingConfirmed(
+      user.username,
+      pkg.title,
+      bookingId,
+      booking.totalAmount,
+      booking.totalPersons,
+      booking.travelDate
+    )
+    
+    const mail = await sendEmail(user.email, subject, html, text);
+    console.log(mail)
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-};
+}
 
 export const getPayments = async (req, res) => {
   try {
@@ -58,25 +78,3 @@ export const getPayments = async (req, res) => {
   }
 };
 
-
-export const updatePaymentStatus = async (req, res) => {
-  try {
-    const { sessionId, status } = req.body;
-
-    if (!sessionId || !status) {
-      return res.status(400).json({ error: "Missing sessionId or status" });
-    }
-
-    const payment = await Payment.findOneAndUpdate(
-      { transactionId: sessionId },
-      { status },
-      { new: true }
-    );
-
-    if (!payment) return res.status(404).json({ error: "Payment not found" });
-
-    res.json({ message: "Payment status updated", payment });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};

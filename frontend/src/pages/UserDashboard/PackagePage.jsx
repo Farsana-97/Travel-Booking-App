@@ -54,7 +54,7 @@ export const PackagePage = () => {
         className="relative bg-cover bg-center h-72 flex items-center justify-center text-white"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1350&q=80')",
+            "url(https://res.cloudinary.com/dphm3tlqe/image/upload/v1760612157/hero2_weyuap.jpg)",
         }}
       >
         <div className="absolute inset-0 bg-black/40" />

@@ -5,7 +5,7 @@ import { fetchDestination } from "../../features/destinationSlice";
 
 export const ViewDestination = () => {
   const dispatch = useDispatch();
-  const { destinations } = useSelector((state) => state.destination);
+  const { destinations, loading } = useSelector((state) => state.destination);
 
   useEffect(() => {
     dispatch(fetchDestination());
@@ -19,7 +19,7 @@ export const ViewDestination = () => {
         className="relative bg-cover bg-center h-72 flex items-center justify-center text-white"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1350&q=80')",
+            "url(https://res.cloudinary.com/dphm3tlqe/image/upload/v1760612031/img4_udfu8n.jpg)",
         }}
       >
         <div className="absolute inset-0 bg-black/50" />
@@ -32,25 +32,25 @@ export const ViewDestination = () => {
       </section>
 
       <section id="destination" className="py-16">
+        {loading && <p>Loading packages...</p>}
         <div className="max-w-7xl mx-auto px-6">
-
           {destinations.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {destinations.map((d) => (
                 <div
-                  key={d._id || d.id}
+                  key={d.id}
                   className="bg-white shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden"
                 >
                   <div className="w-full bg-gray-100">
                     <img
                       src={d.imageUrl}
                       alt={d.name}
-                      className="w-full h-95 object-cover"  
+                      className="w-full h-95 object-cover"
                     />
                   </div>
 
                   <div className="p-5 text-center">
-                    <h3 className="text-lg font-semibold text-indigo-800">
+                    <h3 className="text-2xl font-semibold text-indigo-800">
                       {d.name}
                     </h3>
                     <p className="text-sm text-gray-500 italic mb-2">

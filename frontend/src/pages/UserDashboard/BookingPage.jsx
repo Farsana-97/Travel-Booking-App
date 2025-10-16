@@ -59,7 +59,7 @@ export const BookingPage = () => {
         className="min-h-screen flex items-center justify-center bg-cover bg-center px-4"
         style={{
           backgroundImage:
-            "url('https://png.pngtree.com/background/20250121/original/pngtree-a-small-cozy-village-in-switzerland-picture-image_15498851.jpg')",
+            "url(https://res.cloudinary.com/dphm3tlqe/image/upload/v1760612157/hero2_weyuap.jpg)",
         }}
       >
         <div className="bg-white/90 shadow-2xl rounded-2xl w-full mt-12 max-w-lg p-8 backdrop-blur">
