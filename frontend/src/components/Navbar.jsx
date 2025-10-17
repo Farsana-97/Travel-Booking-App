@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../features/authSlice";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -26,38 +27,38 @@ const Navbar = () => {
 
   const handleLogout = () => {
     Swal.fire({
-          title: "Are you sure?",
-          text: "You’ll be logged out of your TravelVista account.",
-          icon: "warning",
-          showCancelButton: true,
+      title: "Are you sure?",
+      text: "You’ll be logged out of your TravelVista account.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3b82f6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Logout",
+      background: "#f9fafb",
+      customClass: {
+        title: "text-xl font-semibold text-gray-800",
+        htmlContainer: "text-lg text-gray-700",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(logout());
+        navigate("/");
+
+        Swal.fire({
+          title: "Logged Out!",
+          text: "You have been logged out successfully. ✈️",
+          icon: "success",
           confirmButtonColor: "#3b82f6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, Logout",
-          background: "#f9fafb",
+          timer: 2000,
+          showConfirmButton: false,
           customClass: {
             title: "text-xl font-semibold text-gray-800",
             htmlContainer: "text-lg text-gray-700",
           },
-        }).then((result) => {
-          if (result.isConfirmed) {
-            dispatch(logout());
-            navigate("/");
-    
-            Swal.fire({
-              title: "Logged Out!",
-              text: "You have been logged out successfully. ✈️",
-              icon: "success",
-              confirmButtonColor: "#3b82f6",
-              timer: 2000,
-              showConfirmButton: false,
-              customClass: {
-                title: "text-xl font-semibold text-gray-800",
-                htmlContainer: "text-lg text-gray-700",
-              },
-            });
-          }
         });
-      };
+      }
+    });
+  };
 
   return (
     <nav
@@ -99,8 +100,8 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex md:space-x-10">
-          <a
-            href="/about-us"
+          <Link
+            to="/about-us"
             className={`font-medium transition ${
               scrolled
                 ? "text-gray-600 hover:text-gray-900"
@@ -108,7 +109,8 @@ const Navbar = () => {
             }`}
           >
             About Us
-          </a>
+          </Link>
+
           <a
             href="/destination-view"
             className={`font-medium transition ${
