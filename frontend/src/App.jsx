@@ -23,17 +23,17 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/register" element={<Register />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
         <Route
           path="/destination"
           element={
             <AdminProtected>
               <Destination />
             </AdminProtected>
-          }
-        ></Route>
+          } 
+        />
         <Route
           path="/admin"
           element={
@@ -41,7 +41,7 @@ function App() {
               <Admin />
             </AdminProtected>
           }
-        ></Route>
+         />
         <Route
           path="/packages"
           element={
@@ -49,7 +49,7 @@ function App() {
               <Package />
             </AdminProtected>
           }
-        ></Route>
+         />
         <Route
           path="/bookings"
           element={
@@ -57,7 +57,7 @@ function App() {
               <Booking />
             </AdminProtected>
           }
-        ></Route>
+         />
         <Route
           path="/payments"
           element={
@@ -65,9 +65,9 @@ function App() {
               <Payments />
             </AdminProtected>
           }
-        ></Route>
-        <Route path="/package-view" element={<PackagePage />}></Route>
-        <Route path="/package-view/:id" element={<PackageDetail />}></Route>
+         />
+        <Route path="/package-view" element={<PackagePage />} />
+        <Route path="/package-view/:id" element={<PackageDetail />} />
 
         <Route
           path="/book-your-pkg/:id"
@@ -76,7 +76,7 @@ function App() {
               <BookingPage />
             </ProtectedRoute>
           }
-        ></Route>
+         />
         <Route
           path="/payment-session/:bookingId"
           element={
@@ -101,8 +101,8 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/destination-view" element={<ViewDestination />}></Route>
-        <Route path="/about-us" element={<AboutUs />}></Route>
+        <Route path="/destination-view" element={<ViewDestination />} />
+        <Route path="/about-us" element={<AboutUs />} />
       </Routes>
     </div>
   );
