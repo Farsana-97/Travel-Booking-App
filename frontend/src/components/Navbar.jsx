@@ -110,9 +110,8 @@ const Navbar = () => {
           >
             About Us
           </Link>
-
-          <a
-            href="/destination-view"
+          <Link
+            to="/destination-view"
             className={`font-medium transition ${
               scrolled
                 ? "text-gray-600 hover:text-gray-900"
@@ -120,9 +119,10 @@ const Navbar = () => {
             }`}
           >
             Destinations
-          </a>
-          <a
-            href="/package-view"
+          </Link>
+
+          <Link
+            to="/package-view"
             className={`font-medium transition ${
               scrolled
                 ? "text-gray-600 hover:text-gray-900"
@@ -130,7 +130,9 @@ const Navbar = () => {
             }`}
           >
             Packages
-          </a>
+          </Link>
+
+          
           <a
             href="/"
             className={`font-medium transition ${
