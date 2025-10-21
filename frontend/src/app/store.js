@@ -4,6 +4,7 @@ import desinationReducer from '../features/destinationSlice'
 import packageReducer from '../features/packageSlice'
 import bookingReducer from '../features/bookingSlice'
 import paymentReducer from '../features/paymentSlice'
+import contactReducer from '../features/contactSlice'
 
 const store = configureStore({
     reducer:{
@@ -11,7 +12,8 @@ const store = configureStore({
         destination:desinationReducer,
         package:packageReducer,
         booking:bookingReducer,
-        payment:paymentReducer
+        payment:paymentReducer,
+        contact:contactReducer,
         
     }
 })

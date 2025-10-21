@@ -116,6 +116,12 @@ export const Admin = ({ children }) => {
           >
             Payments
           </Link>
+          <Link
+            to="/users-view"
+            className="w-full block text-left px-4 py-2 rounded-xl text-lg font-serif hover:bg-white/20"
+          >
+            Users
+          </Link>
           <button
             onClick={handleLogout}
             className="w-full block text-left px-4 py-2 rounded-xl text-lg font-serif hover:bg-white/20"

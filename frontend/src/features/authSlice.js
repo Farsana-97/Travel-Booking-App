@@ -42,6 +42,18 @@ export const fetchUsers = createAsyncThunk("auth/fetch", async () => {
   }
 });
 
+export const deleteUser = createAsyncThunk(
+  "auth/delete",
+  async (id) => {
+    try {
+      const res = await axiosInstance.delete(`/api/auth/${id}`);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -130,7 +142,14 @@ const authSlice = createSlice({
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.error;
-      });
+      })
+
+      .addCase(deleteUser.fulfilled, (state, action) => {
+              state.users = state.users.filter(
+                (d) => d._id !== action.payload.id
+              );
+      
+            })
   },
 });
 

@@ -18,6 +18,8 @@ import { ViewMyBooking } from "./pages/UserDashboard/ViewMyBooking";
 import { ViewDestination } from "./pages/UserDashboard/ViewDestination";
 import { AboutUs } from "./pages/AboutUs";
 import { AdminProtected } from "./components/AdminProtected";
+import { ContactUs } from "./pages/ContactUs";
+import { UserPage } from "./pages/AdminDashboard/UserPage";
 
 function App() {
   return (
@@ -66,6 +68,14 @@ function App() {
             </AdminProtected>
           }
          />
+         <Route
+          path="/users-view"
+          element={
+            <AdminProtected>
+              <UserPage />
+            </AdminProtected>
+          }
+         />
         <Route path="/package-view" element={<PackagePage />} />
         <Route path="/package-view/:id" element={<PackageDetail />} />
 
@@ -103,6 +113,9 @@ function App() {
         />
         <Route path="/destination-view" element={<ViewDestination />} />
         <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/contact" element={<ContactUs />} />
+        
+
       </Routes>
     </div>
   );

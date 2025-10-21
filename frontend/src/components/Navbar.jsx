@@ -132,9 +132,8 @@ const Navbar = () => {
             Packages
           </Link>
 
-          
-          <a
-            href="/"
+          <Link
+            to="/contact"
             className={`font-medium transition ${
               scrolled
                 ? "text-gray-600 hover:text-gray-900"
@@ -142,7 +141,9 @@ const Navbar = () => {
             }`}
           >
             Contact Us
-          </a>
+          </Link>
+
+
         </div>
 
         <div className="flex gap-4">
