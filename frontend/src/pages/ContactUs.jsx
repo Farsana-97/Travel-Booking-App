@@ -44,7 +44,6 @@ export const ContactUs = () => {
 
       <div className="bg-white flex justify-center items-center px-5 py-16">
         <div className="max-w-6xl w-full grid md:grid-cols-2 gap-10">
-          {/* Left Section */}
           <div className="space-y-8 pl-7">
             <div>
               <h2 className="text-2xl font-semibold mb-3">Contact Us</h2>
@@ -68,7 +67,6 @@ export const ContactUs = () => {
             </div>
           </div>
 
-          {/* Right Section */}
           <div>
             <h2 className="text-2xl font-semibold mb-6">Your question?</h2>
             <form className="space-y-5" onSubmit={handleSubmit}>

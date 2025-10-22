@@ -34,8 +34,8 @@ export const paymentSession = async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: `http://localhost:5173/payment-success/${bookingId}`,
-      cancel_url: `http://localhost:5173/payment-cancel/${bookingId}`,
+      success_url: `${process.env.FRONTEND_URL}/payment-success/${bookingId}`,
+      cancel_url: `${process.env.FRONTEND_URL}/payment-cancel/${bookingId}`,
     });
 
     const payment = await Payment.create({

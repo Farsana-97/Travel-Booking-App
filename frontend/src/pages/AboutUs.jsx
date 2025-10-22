@@ -186,7 +186,7 @@ export const AboutUs = () => {
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
               Get The <span className="text-green-600 italic">Best Travel</span>{" "}
-              Experience With Gotur
+              Experience With TravelVista
             </h2>
             <p className="text-gray-500 max-w-lg mx-auto md:mx-0 mb-8">
               It is a long established fact that a reader will be distracted by
